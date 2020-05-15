@@ -5,15 +5,43 @@
 /* azul #A1A9FF*/
 /* amarelo #FFFE87*/ 
 /* aqua #94D5FF*/
+/* Soft Reset*/
+* {
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
 body {
   //background-color:#D3ADFF;
-  background-image:url('https://newtrade.com.br/wp-content/uploads/2017/11/background-azul.gif');
+  background-image: url(bg-azul.gif);
   font-family:Arial;
   background-size:auto 100vh;
+  font-size:10px;
   height:100vh;
+}
+
+@media (min-width:400px) {
+  body{
+    font-size:14px;
+  }
+}
+
+@media (min-width:600px) {
+  body{
+    font-size:18px;
+  }
+}
+header{
+  height:50vh;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
 .menu{
   //background-color:white;
+  position: fixed;
+  width:100vw;
+  top:0;
 }
 .menu li{
   list-style:none;
@@ -22,6 +50,10 @@ body {
   display:flex; /* Organizar menu */
   /* justify-content:space-between; */
   justify-content:space-around;
+}
+.menu a{
+  display:block;
+  padding:10px 20px;
 }
 a{
   color:#FFE2BA;
@@ -38,4 +70,11 @@ a:hover{
 }
 .site-subtitle{
   font-style:italic;
+}
+.img-portfolio{
+  width: 96px;
+  height: 96px;
+}
+section{
+  display:flex;
 }
