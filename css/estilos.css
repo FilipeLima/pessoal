@@ -16,7 +16,8 @@ body {
   background-image: url(bg-azul.gif);
   font-family: 'Crimson Text', serif;
   background-size:auto 100vh;
-  font-size:10px;
+  font-size:12px;
+  color:#FFE2BA;
   height:100vh;
 }
 
@@ -31,6 +32,14 @@ body {
     font-size:18px;
   }
 }
+
+/* breakpoint */
+@media (min-width: 1200px) {
+  body {
+    font-size: 20px;
+  }
+}
+
 header{
   height:50vh;
   display:flex;
@@ -38,10 +47,11 @@ header{
   align-items: center;
 }
 .menu{
-  //background-color:white;
+  //background-color:#FFE2BA;
   position: fixed;
   width:100vw;
   top:0;
+  z-index: 1;
 }
 .menu li{
   list-style:none;
@@ -54,34 +64,65 @@ header{
 .menu a{
   display:block;
   padding:10px 20px;
+  transition: color 1s;
 }
+
+.menu a:active,
+.menu a:hover {
+  //background-color:#D3ADFF;
+  color: white;
+}
+
 a{
-  color:#FFE2BA;
+  color:#D3ADFF;
   text-decoration:none;
 }
+
 a:hover{
   text-decoration:underline;
 }
 
-.site-subtitle,
+.titulo {
+  transform: scale(0.2) translateY(50vh);
+  opacity: 0;
+  animation: 3s ease 1s animacaoTitulo forwards;
+}
+
+@keyframes animacaoTitulo {
+  from {
+    transform: scale(0.2) translateY(50vh);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
 .site-title{
   color:#FFFE87;
   text-align:center;
   font-family: 'Kaushan Script', cursive;
-  font-size:2em;
+  font-size:3em;
 }
 .site-subtitle{
+  color:#FFFE87;
+  text-align:center;
   font-family: 'Audiowide', cursive;
   font-size:1em;
   line-height: 1.8em;
 }
+.contato,
 .portfolio{
   padding:2em;
   text-align: center;
+  //min-height:100vh;
 }
+.contato h2,
 .portfolio h2{
   font-family: 'Audiowide', cursive;
   margin-bottom: 1.5em;
+  font-size:2em;
 }
 
 .portfolio .grid{
@@ -101,28 +142,27 @@ a:hover{
     justify-content: space-around;
   } 
 } 
+.portfolio figure,
+.contato figure {
+  text-align: center;
+}
+
 .img-portfolio{
   width: 128px;
   height: 128px;
   object-fit: contain;
+  transition: transform 500ms;
 }
 
 .img-portfolio:hover{
-  width: 145px;
-  height: 145px;
-  object-fit: contain;
+  //width: 145px;
+  //height: 145px;
+  //object-fit: contain;
+  transform: scale(1.2) rotate(-4deg);
 }
 
-.contato{
-  padding:2em;
-  text-align: center;
-}
-.contato h2{
-  font-family: 'Audiowide', cursive;
-  margin-bottom: 1.5em;
-}
 
-.contato .grid{
+/*.contato .grid{
   display:grid;
   gap:1em;
   align-content:center;
@@ -143,16 +183,18 @@ a:hover{
     grid-template-columns:repeat(5,65px);
     justify-content: space-around;
   } 
-} 
-.img-contato{
-  width: 64px;
-  height: 64px;
-  object-fit: contain;
+} */
+.contato .icons {
+  text-align: center;
 }
 
-.img-contato:hover{
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
+.contato a {
+  font-size: 4em;
+  transition: text-shadow 500ms;
 }
 
+.contato a:active,
+.contato a:hover  {
+  text-decoration: none;
+  text-shadow: 0px 0px 15px rgba(255,255,255,.5);
+}
