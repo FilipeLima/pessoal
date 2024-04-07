@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soma de Riemann</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Crimson+Text&family=Kaushan+Script&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2f14c7eb7b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css">
+    <script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+ </script>
+    <script>
+    // Make the div with id 'mycell' a Sage cell
+    sagecell.makeSagecell({inputLocation:  '#mycell',
+                           template:       sagecell.templates.minimal,
+                           evalButtonText: 'Ativar'});
+    sagecell.makeSagecell({inputLocation:  '#mycell1',
+                           template:       sagecell.templates.minimal,
+                           evalButtonText: 'Ativar'});
+    sagecell.makeSagecell({inputLocation:  '#mycell2',
+                           template:       sagecell.templates.minimal,
+                           evalButtonText: 'Ativar'});
+    sagecell.makeSagecell({inputLocation:  '#mycell3',
+                           template:       sagecell.templates.minimal,
+                           evalButtonText: 'Ativar'});                                                                                   
+    // Make *any* div with class 'compute' a Sage cell
+    sagecell.makeSagecell({inputLocation: 'div.compute',
+                           evalButtonText: 'Calcular'});
+    </script>
+
+</head>
+<body>
+    <header>
+        <nav class="menu">
+          <ul class="container">
+            <li><a href="index.htm">Sobre</a></li>
+            <li><a href="docencia.html#calculo">Cálculo I</a></li>
+            <li><a href="docencia.html#calculo2">Cálculo II</a></li>
+            <li><a href="#algebra">Álgebra Linear</a></li>
+          </ul>
+        </nav>
+
+      </header>
+<h1>Soma de Riemann</h1>
+<p>Nessa página você usará alguns <em>widgets</em> para determinar a quantidade de retângulos ou trapézios você
+   dividirá um intervalo <math><mrow><mo stretchy="false">[</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo stretchy="false">]</mo></mrow></math>
+   de uma função e a calcular a soma da áreas deles. O objetivo é entender que quanto mais você aumentar a 
+   quantidade de polígonos, mais você se aproxima da área real da função no intervalo dado. Ou seja,
+    o somatório de cada área <math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">A_{i}</annotation></semantics></math> ,
+     para <math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>∈</mo><mo stretchy="false">[</mo><mn>1</mn><mo separator="true">,</mo><mi>n</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">i\in [1,n]</annotation></semantics></math>
+      se aproximará da integral da função</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>A</mi><mi>i</mi></msub><mo>≈</mo><msubsup><mo>∫</mo><mi>a</mi><mi>b</mi></msubsup><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mi>d</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\sum_{i=1}^{n}A_{i} \approx \int_{a}^{b}f(x)dx</annotation></semantics></math></p>
+
+
+  
+</div>
+
+<h2>Retângulos - Soma à esquerda</h2>
+<p>Clique no botão "Ativar" abaixo. Digite a função <em>f</em>, o limite inferior <em>a</em> do intervalo, 
+  o limite superior <em>b</em> e a quantidade de retângulos <em>n</em> para gerar uma figura que desenha 
+  o gráfico de <em>f</em> e <em>n</em> retângulos que têm a altura baseada no limite inferior do intervalo 
+  e a soma da área desses retângulos.</p>
+
+<div id="mycell"><script type="text/x-sage">
+
+var('x') 
+@interact
+def _(f = input_box(default = "x^2", type = str),a=(0,(-5,3,1)),b=(4,(4,10,1)),n=(4,(2,40,1))):
+  G = Graphics()
+  n_passos = n
+  passo = 0
+  pmi = 0
+  f = sage_eval(f, locals={'x':x})
+  variacao = (b-a)/n
+  soma=0
+  func=r'$f(x)='+str(latex(f))+'$'
+  for i in range(n_passos):
+    inicio = a + passo
+    fim = a + passo + variacao
+    pmi = f(x=inicio)
+    soma=soma+pmi*variacao
+    G=G+polygon2d([[inicio,0],[inicio,pmi], [fim,pmi], [fim,0]],color='orange',edgecolor='green')
+    passo = passo+variacao
+  G = G + plot(f, a, b,title='Retangulos no início do intervalo',color='blue',thickness=2)
+  show(G, figsize=8,aspect_ratio='automatic')
+  print("Para ", n, " retângulos a soma das áreas é ", round(RDF(soma),6))
+  print("A área real usando a integral é ", round(RDF(integral(f,x,a,b)),6))
+   </script>
+</div>
+
+<h2>Retângulos - Soma à direita</h2>
+<p>Clique no botão "Ativar" abaixo. Digite a função <em>f</em>, o limite inferior <em>a</em> do intervalo, 
+  o limite superior <em>b</em> e a quantidade de retângulos <em>n</em> para gerar uma figura que desenha o
+   gráfico de <em>f</em> e <em>n</em> retângulos que têm a altura baseada no limite superior do intervalo e a
+    soma da área desses retângulos.</p>
+
+<div id="mycell1"><script type="text/x-sage">
+
+var('x') 
+@interact
+def _(f = input_box(default = "x^2", type = str),a=(0,(-5,3,1)),b=(4,(4,10,1)),n=(4,(2,40,1))):
+  G = Graphics()
+  n_passos = n
+  passo = 0
+  pmi = 0
+  f = sage_eval(f, locals={'x':x})
+  variacao = (b-a)/n
+  soma=0
+  func=r'$f(x)='+str(latex(f))+'$'
+  for i in range(n_passos):
+    inicio = a + passo
+    fim = a + passo + variacao
+    pmi = f(x=fim)
+    soma=soma+pmi*variacao
+    G=G+polygon2d([[inicio,0],[inicio,pmi], [fim,pmi], [fim,0]],color='orange',edgecolor='green')
+    passo = passo+variacao
+  G = G + plot(f, a, b,title='Retangulos no fim do intervalo',color='blue',thickness=2)
+  show(G, figsize=8,aspect_ratio='automatic')
+  print("Para ", n, " retângulos a soma das áreas é ", round(RDF(soma),6))
+  print("A área real usando a integral é ", round(RDF(integral(f,x,a,b)),6))
+   </script>
+</div>
+
+<h2>Retângulos - Ponto médio</h2>
+<p>Clique no botão "Ativar" abaixo. Digite a função <em>f</em>, o limite inferior <em>a</em> do intervalo,
+  o limite superior <em>b</em> e a quantidade de retângulos <em>n</em> para gerar uma figura que desenha o
+  gráfico de <em>f</em> e <em>n</em> retângulos que têm a altura baseada no ponto médio do intervalo e a
+  soma das áreas desses retângulos.</p>
+
+<div id="mycell2"><script type="text/x-sage">
+var('x') 
+@interact
+def _(f = input_box(default = "x^2", type = str),a=(0,(-5,3,1)),b=(4,(4,10,1)),n=(4,(2,40,1))):
+  G = Graphics()
+  n_passos = n
+  passo = 0
+  pmi = 0
+  f = sage_eval(f, locals={'x':x})
+  variacao = (b-a)/n
+  soma=0
+  func=r'$f(x)='+str(latex(f))+'$'
+  for i in range(n_passos):
+    inicio = a + passo
+    fim = a + passo + variacao
+    pmi = f(x=(fim+inicio)/2)
+    soma=soma+pmi*variacao
+    G=G+polygon2d([[inicio,0],[inicio,pmi], [fim,pmi], [fim,0]],color='orange',edgecolor='green')
+    passo = passo+variacao
+  G = G + plot(f, a, b,title='Retangulos no fim do intervalo',color='blue',thickness=2)
+  show(G, figsize=8,aspect_ratio='automatic')
+  print("Para ", n, " retângulos a soma das áreas é ", round(RDF(soma),6))
+  print("A área real usando a integral é ", round(RDF(integral(f,x,a,b)),6))
+   </script>
+</div>
+<h2>Trapézios</h2>
+<p>Clique no botão "Ativar" abaixo. Digite a função <em>f</em>, o limite inferior <em>a</em> do intervalo,
+  o limite superior <em>b</em> e a quantidade detrapézios <em>n</em> para gerar uma figura que desenha o
+  gráfico de <em>f</em> e <em>n</em> trapézios e a soma das áreas desses trapézios.</p>
+<div id="mycell3"><script type="text/x-sage">
+var('x') 
+@interact
+def _(f = input_box(default = "x^2", type = str),a=(0,(-5,3,1)),b=(4,(4,10,1)),n=(4,(2,40,1))):
+  G = Graphics()
+  n_passos = n
+  passo = 0
+  pmi = 0
+  f = sage_eval(f, locals={'x':x})
+  variacao = (b-a)/n
+  soma=0
+  func=r'$f(x)='+str(latex(f))+'$'
+  for i in range(n_passos):
+    inicio = a + passo
+    fim = a + passo + variacao
+    base_menor = f(x=inicio)
+    base_maior= f(x=fim)
+    soma=soma+(base_maior+base_menor)*variacao*0.5
+    G=G+polygon2d([[inicio,0],[inicio,base_menor], [fim,base_maior], [fim,0]],color='orange',edgecolor='green')
+    passo = passo+variacao
+  G = G + plot(f, a, b,title='Trapézios',color='blue',thickness=2)
+  show(G, figsize=8,aspect_ratio='automatic')
+  print("Para ", n, " trapézios a soma das áreas é ", round(RDF(soma),6))
+  print("A área real usando a integral é ", round(RDF(integral(f,x,a,b)),6))
+ </script>
+  </div>
+</body>
+</html>

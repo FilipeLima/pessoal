@@ -13,10 +13,13 @@
 <body>
     <header>
         <nav class="menu">
-          <ul>
+          <ul class="container">
             <li><a href="#">Sobre</a></li>
             <li><a href="#portfolio">Portfólio</a></li>
             <li><a href="#contato">Contato</a></li>
+            <li>            <a target="_blank" href="http://lattes.cnpq.br/3409397956357592">
+              <i class="ai ai-lattes"></i>
+            </a></li>
           </ul>
         </nav>
         <div class='titulo'>
@@ -25,7 +28,15 @@
         </div>
         
       </header>
-        <section class="portfolio" id='portfolio'>
+      <section class="sobre container" id="sobre">
+        <h2>Sobre</h2>
+        <figure class="avatar">
+          <img class='img-sobre' src="./img/filipe.jpeg" alt="Filipe Mendonça de Lima">
+        </figure>
+        <p>Professor de Matemática da Unidade Acadêmica de Serra Talhada da Universidade Federal Rural de Pernambuco. Doutorando em Biometria e Estatística Aplicada também pela UFRPE.</p>
+        <p>Esse site foi construído durante a <a target="_blank" href="https://www.alura.com.br/imersao-css">Imersão CSS</a> da Alura.</p>
+      </section>
+        <section class="portfolio container" id='portfolio'>
           <h2>Portfólio</h2>
           <div class="grid">
           <figure>
@@ -33,7 +44,9 @@
             <figcaption>Formação</figcaption>
           </figure>
           <figure>
-            <img class='img-portfolio' src='./img/education.png' alt='Docência'>
+            <a href="docencia.html">
+              <img class='img-portfolio' src='./img/education.png' alt='Docência'>
+            </a>
             <figcaption>Docência</figcaption>
           </figure>
           <figure>
@@ -47,7 +60,7 @@
         </div>
         </section>
 
-        <section class="contato" id='contato'>
+        <section class="contato container" id='contato'>
           <h2>Contato</h2>
 
           <div class="grid icons">
