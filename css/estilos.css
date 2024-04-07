@@ -172,8 +172,6 @@ a:hover{
   clip-path: circle(41.7% at 50% 50%);
 }
 
-
-
 .portfolio .grid{
   display:grid;
   gap:1em;
